@@ -1,7 +1,7 @@
 ## オレオレgulpタスク
 
 
-確認環境
+#### 確認環境
 
 - Mac OSX11 Yosemite
 - nodebrew 0.7.5
@@ -10,6 +10,11 @@
 - ruby 2.1.5p273
 - gem 2.2.2
 - Compass 1.0.1
+
+#### 構成
+HTMLテンプレートにEJSを使用し、JSは生、CSSはSCSSを使用。
+JSのminifiyにはuseminを使用している、ちょっと変則的な構成です。
+普通のサイトを作るように最適化されている気がします。
 
 
 ---
