@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+
+/* --------------------------------------------- */
+/* SP PC */
+/* --------------------------------------------- */
+.smp{
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  text-indent: 100%;
+  overflow: hidden;
+}
+
+
+/*------------------------------------------------
+   layout
+------------------------------------------------*/
+@media screen and (max-width: 480px) {
+
+.pc{
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  text-indent: 100%;
+  overflow: hidden;
+}
+
+.smp{
+  display: inherit;
+  visibility: visible;
+  opacity: 1;
+  width: auto;
+  height: auto;
+  text-indent: 0;
+  overflow: inherit;
+}
+
+// end
+}

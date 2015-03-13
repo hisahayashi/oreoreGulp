@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+// @import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+// @import "./component/_sprite.scss";
+@import "./component/_mixin.scss";
+@import "./component/_reset.scss";
+@import "./component/_common.scss";
+@import "./component/_responsive.scss";
+
+@import "./component/_header.scss";
+@import "./component/_footer.scss";
+@import "./scene/_index.scss";
+@import "./scene/_second.scss";
+@import "./scene/_about.scss";
+
+// @import "./owl/_owl.carousel.scss";
+// @import "./owl/_owl.theme.scss";
+// @import "./owl/_owl.transitions.scss";

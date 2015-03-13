@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+/* --------------------------------------------- */
+/* head */
+/* --------------------------------------------- */
+#head {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  .init{
+    width: auto;
+    height: 57px;
+    background: $lt_white;
+    border-bottom: $dk_white solid 1px;
+  }
+  .open{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background: $gray;
+  }
+  .logo{
+    position: absolute;
+    left: 13px;
+    top: 15px;
+    a{
+      @include background-image( "/global/all_logo01.png", 77.5, 28.5, 0 );
+    }
+  }
+  .openbtn{
+    position: absolute;
+    right: 13px;
+    top: 11px;
+    a{
+      @include background-image( "/global/nav_btn01.png", 34.5, 35, 0 );
+    }
+  }
+  .closebtn{
+    a{
+    }
+  }
+  .gnav{
+    li{
+      a{
+      }
+    }
+  }
+}

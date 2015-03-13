@@ -1,0 +1,86 @@
+@charset "utf-8";
+/*
+* 	Owl Carousel Owl Demo Theme
+*	v1.3.2
+*/
+
+.owl-theme{
+
+ .owl-controls {
+    margin-top: 10px;
+    text-align: center;
+
+    .owl-buttons  {
+
+      div{
+        position: absolute;
+        top: 50%;
+        width: 32px;
+        height: 54px;
+        margin: -16px 0 0 0;
+        @include hide-text;
+
+        &:hover{
+          opacity: 0.5;
+        }
+
+        &.owl-prev {
+          left: 20px;
+          background: url(../img/top_arw01_l.png) no-repeat;
+          background-size: 32px auto;
+        }
+
+        &.owl-next {
+          right: 20px;
+          background: url(../img/top_arw01_r.png) no-repeat;
+          background-size: 32px auto;
+        }
+      }
+    }
+
+    &.clickable  {
+      .owl-buttons {
+        div:hover{
+        }
+      }
+    }
+
+    .owl-page {
+      display: inline-block;
+
+      span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        margin: 5px 7px;
+        opacity: 0.5;
+        border-radius: 5px;
+        background: #869791;
+      }
+
+      &.active span,
+      &:hover span {
+        opacity: 1;
+        background: $gray;
+      }
+
+      &.owl-numbers {
+        height: auto;
+        width: auto;
+        color: #fff;
+        padding: 2px 10px;
+        font-size: 12px;
+        border-radius: 30px;
+      }
+    }
+
+  }
+}
+
+.owl-item{
+  .loading {
+    min-height: 150px;
+    background: url(../img/AjaxLoader.gif) no-repeat center center
+  }
+}
+
