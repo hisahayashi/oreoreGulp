@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<%
+page = {
+  type: 'second'
+};
+%>
 <title><%= global.sitename %></title>
-<%= include ('../_common/meta') %>
-<%= include ('../_common/js_second') %>
+<%- include ../_common/include %>
+<%- include ../_common/meta %>
+<%- include ../_common/js %>
 </head>
 <body>
 
 <!-- wrap -->
 <div id="wrap">
 
-<%= include ('../_common/header') %>
+<%- include ../_common/header %>
 
 <!-- contents -->
 <article class="contents" id="about">
@@ -20,7 +26,7 @@
 </article>
 <!-- //contents -->
 
-<%= include ('../_common/footer') %>
+<%- include ../_common/footer %>
 
 </div>
 <!-- //wrap -->
