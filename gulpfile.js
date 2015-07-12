@@ -79,7 +79,7 @@ var selector = {
   html_usemin: [ './src/html/*.html' ],
   html_copy: [ './src/html/**/', '!./src/html/*.html' ],
   ejs: [ './src/ejs/*.ejs', './src/ejs/**/*.ejs' ],
-  ejs_w: [ './src/ejs/**/*.ejs', '!./src/ejs/_common/*.ejs' ],
+  ejs_w: [ './src/ejs/**/*.ejs', '!./src/ejs/common/*.ejs' ],
   img: [ './src/assets/img/**/*' ],
   sprite: [ './src/assets/img/sprite/*.png' ],
   spriteParts: [ './src/assets/img/sprite_parts/*.png' ],
