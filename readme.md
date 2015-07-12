@@ -3,13 +3,35 @@
 
 #### 確認環境
 
-- Mac OSX11 Yosemite
-- nodebrew 0.7.5
-- node 0.10.33
-- npm 1.4.28
-- ruby 2.1.5p273
-- gem 2.2.2
-- Compass 1.0.1
+- Mac OSX: 10.10.4
+- gem: 2.4.4
+- ruby: 2.0.0
+- gulp: CLI version 3.9.0
+- node: v0.12.4
+
+- browser-sync : ^2.7.13
+- compass : ^0.1.1
+- gulp : ^3.9.0
+- gulp-bower-files : ^0.2.7
+- gulp-clean : ^0.3.1
+- gulp-copy : 0.0.2
+- gulp-debug : ^2.0.1
+- gulp-ejs : ^1.1.0
+- gulp-flatten : 0.1.0
+- gulp-ignore : ^1.2.1
+- gulp-imagemin : ^2.3.0
+- gulp-load-plugins : ^1.0.0-rc
+- gulp-pleeease : ^1.2.0
+- gulp-plumber : ^1.0.1
+- gulp-rename : ^1.2.2
+- gulp-sass : ^2.0.3
+- gulp-sourcemaps : ^1.5.2
+- gulp-uglify : ^1.2.0
+- gulp-usemin : ^0.3.11
+- gulp-util : ^3.0.6
+- gulp.spritesmith : ^3.8.2
+- run-sequence : ^1.1.1"
+
 
 #### 構成
 HTMLテンプレートにEJSを使用し、JSは生、CSSはSCSSを使用。
