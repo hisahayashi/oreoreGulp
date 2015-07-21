@@ -75,6 +75,7 @@ var bowerPath = './bower_components';
 /* ------------------------------------------------ */
 /* パス */
 var selector = {
+  ejs_data: [ejsdataPath],
   html: [ './src/html/**/*.html', './src/html/**/*.html'],
   html_usemin: [ './src/html/*.html' ],
   html_copy: [ './src/html/**/', '!./src/html/*.html' ],
@@ -88,6 +89,7 @@ var selector = {
   js: [ './src/assets/js/**/*' ],
   js_dev: [ './src/assets/js-dev/**/*' ],
   js_libs: [ './src/assets/js-libs/**/*' ],
+  js_global: [ './src/assets/js-dev/global.js' ],
   json: [ './src/assets/json/**/*' ],
   css: [ './src/assets/css/**/*' ],
   sass: [ './src/assets/sass/**/*' ]
@@ -185,6 +187,24 @@ gulp.task('sprite', function( callback ) {
       .pipe(gulp.dest('./src/assets/sass/component/'));
     });
 
+});
+
+gulp.task( 'edit_global_js', function( callback ) {
+  return gulp.src( selector.js_global )
+    .pipe($.edit(function(src, cb){
+      // this === file
+      var err = null;
+      var obj = ejsJson;//Object.create(ejsJson);
+      obj.debug = true;
+      if( $.util.env.stage || $.util.env.prod ) obj.debug = false;
+      src += 'var global = ' + JSON.stringify(obj);
+      cb(err, src);
+    }))
+    .pipe( $.rename( {
+      suffix: '.edit',
+    } ) )
+    .pipe(gulp.dest( './src/assets/js-dev/' ))
+    .on('end', function() {});
 });
 
 gulp.task( 'clean', function() {
@@ -297,6 +317,7 @@ gulp.task( 'watch', function() {
   gulp.watch( selector.js_dev, [ 'watchJS' ] );
   gulp.watch( selector.js_lib, [ 'watchJS' ] );
   gulp.watch( selector.json, [ 'watchJS' ] );
+  gulp.watch( selector.ejs_data, [ 'watchJS' ] );
 
   var watch = gulp.watch( selector.sass, [ 'watchCSS' ] );
   watch.on('change', function(e) {
@@ -308,7 +329,7 @@ gulp.task( 'watch', function() {
 
 gulp.task( 'watchJS', function( callback ) {
   runSequence(
-    'ejs', 'usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json', callback
+    'edit_global_js', 'ejs', 'usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json', callback
   );
 });
 
@@ -330,7 +351,7 @@ gulp.task( 'watchSprite', function( callback ) {
 gulp.task( 'default', function( callback ) {
   runSequence(
     'clean',
-    'ejs','usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json',
+    'edit_global_js', 'ejs','usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json',
     'sass', 'pleeease', 'clean_css',
     'copy_img', 'copy_video', 'copy_font',
     'bs', 'watch', callback

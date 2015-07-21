@@ -2,7 +2,7 @@
 /* console.log のかわり */
 var debug = function( $obj ) {
   if( window.console && window.console.log ) {
-    if( Global.debug ) window.console.log( $obj );
+    if( global.debug ) window.console.log( $obj );
   }
 };
 

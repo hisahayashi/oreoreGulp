@@ -43,7 +43,6 @@ All.setupResponsive = function(){
   debug( rps.smp );
 
   var isSmp = Utils.isSmartDevice();
-  // var smpViewport = 'width=375, user-scalable=no, target-densitydpi=medium-dpi';
   var smpViewport = 'width=375, user-scalable=no, target-densitydpi=device-dpi';
   var pcViewport = 'width=1024';
 

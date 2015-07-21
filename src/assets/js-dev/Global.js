@@ -1,3 +1,0 @@
-var Global = {
-  debug: true
-};

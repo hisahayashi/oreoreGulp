@@ -190,6 +190,55 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
 
 
 /* --------------------------------------------- */
+/* multi device background */
+/* --------------------------------------------- */
+@mixin custom-background( $file, $w, $h ){
+  /* @2x */
+
+  $file_suffix: addSuffix( $file, '@2x' );
+  $path_1x: '/assets/img/lo-res' + $file;
+  $path_2x: '/assets/img/hi-res' + $file_suffix;
+
+  display: block;
+  width: $w+px;
+  height: $h+px;
+  background-image: url( #{$path_1x} );
+  background-repeat: no-repeat;
+  background-size: $w+px $h+px;
+  @include hide-text;
+
+  @media (min--moz-device-pixel-ratio: 1.3),
+  (-o-min-device-pixel-ratio: 2.6/2),
+  (-webkit-min-device-pixel-ratio: 1.3),
+  (min-device-pixel-ratio: 1.3),
+  (min-resolution: 1.3dppx) {
+    background-image: url( #{$path_2x} );
+    background-size: $w+px $h+px;
+  }
+}
+
+@mixin hover-background( $file, $w, $h ){
+  $file_on: addSuffix( $file, '_on' );
+  position: relative;
+  @include custom-background( $file, $w, $h );
+
+  &:hover:after{
+    opacity: 1;
+  }
+
+  &:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    @include custom-background( $file_on, $w, $h );
+    opacity: 0;
+    transition: opacity .2s cubic-bezier($easeIn-out-circ);
+  }
+}
+
+
+/* --------------------------------------------- */
 /* mixin */
 /* --------------------------------------------- */
 @mixin head-btn{
