@@ -1,0 +1,215 @@
+@charset "utf-8";
+
+
+/* --------------------------------------------- */
+/* value */
+/* --------------------------------------------- */
+$width_s: 667px;
+$width_m: 960px;
+$width_ml: 1024px;
+$width_l: 1200px;
+
+/* --------------------------------------------- */
+/* ease */
+/* --------------------------------------------- */
+$easeIn-out-cubic: 0.645, 0.045, 0.355, 1.000;
+$easeIn-out-circ: 0.785, 0.135, 0.150, 0.860;
+$easeIn-out-expo: 1.000, 0.000, 0.000, 1.000;
+$easeIn-out-back: 0.680, -0.550, 0.265, 1.550;
+
+/* --------------------------------------------- */
+/* color */
+/* --------------------------------------------- */
+$black: #000;
+$dk_black: #1f1f1f;
+$lt_black: #2f2f2f;
+
+$vdk_gray: #3f3f3f;
+$dk_gray: #666;
+$gray: #999;
+$lt_gray: #aaa;
+$vlt_gray: #ccc;
+
+$dk_white: #ddd;
+$lt_white: #eee;
+$white: #fff;
+
+/* --------------------------------------------- */
+/* font */
+/* --------------------------------------------- */
+$font_sans_jp: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+// $font_sans_jp: 'Noto Sans Japanese', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+$font_sans_en: Arial, 'Helvetica Neue', sans-serif;
+$font_serif_jp: 'ヒラギノ明朝 ProN W3', 'HiraMinProN-W3', 'HG明朝E', 'ＭＳ Ｐ明朝', 'MS PMincho', 'MS 明朝', serif;
+$font_serif_en: 'Times New Roman', sans-serif;
+$font_roboto: 'Rotobo', sans-serif;
+$font_roboto_cond: 'Roboto Condensed', sans-serif;
+
+@mixin font-roboto-300{
+  font-family: $font_roboto;
+  font-weight: 300;
+  font-style: normal;
+}
+@mixin font-roboto-400{
+  font-family: $font_roboto;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin font-roboto-500{
+  font-family: $font_roboto;
+  font-weight: 500;
+  font-style: normal;
+}
+@mixin font-roboto-700{
+  font-family: $font_roboto;
+  font-weight: 700;
+  font-style: normal;
+}
+@mixin font-roboto-cond-300{
+  font-family: $font_roboto_cond;
+  font-weight: 300;
+  font-style: normal;
+}
+@mixin font-roboto-cond-400{
+  font-family: $font_roboto_cond;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin font-roboto-cond-700{
+  font-family: $font_roboto_cond;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* --------------------------------------------- */
+/* function */
+/* --------------------------------------------- */
+@function addSuffix( $file, $suffix: '@2x' ){
+  $len: str-length( $file );
+  $pos: str-index($file, '.');
+  $first: str-slice($file, 0, $pos - 1);
+  $lastLen: $len - str-length( $first );
+  $last: str-slice( $file, $pos, $len );
+  $filename: $first + $suffix + $last;
+  @return $filename;
+}
+
+/* --------------------------------------------- */
+/* mixin */
+/* --------------------------------------------- */
+@mixin cf {
+  content: "";
+  display: block;
+  clear: both;
+  &:after{
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+@mixin hide-text {
+  text-indent:100%;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+@mixin op-over( $op: 0.5, $time: 0.15 ){
+  transition: all #{$time}s cubic-bezier($easeIn-out-circ);
+  &:hover{
+    opacity: $op;
+  }
+}
+
+
+/* --------------------------------------------- */
+/* keyframes */
+/* --------------------------------------------- */
+@keyframes fadein {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  99% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
+}
+
+
+
+/* --------------------------------------------- */
+/* container */
+/* --------------------------------------------- */
+@mixin set-flex-width( $w: 640 ){
+  width: $w+px;
+  @media screen and (max-width: #{$w}px) {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+}
+
+@mixin title-style{
+  position: relative;
+  margin: 0 0 15px 0;
+  padding: 0 0 8px 0;
+  font-weight: bold;
+  border-bottom: $lt_black solid 1px;
+  &:after{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 15%;
+    bottom: -1px;
+    border-bottom: $dk_gray solid 1px;
+  }
+}
+
+@mixin corner-arrow( $r: 5, $b: 5, $w: 6, $h: 6 ){
+  &:before{
+    content: "";
+    position: absolute;
+    right: $r + px;
+    bottom: $b + px;
+    @include background-image('/icons/all_arw05.png', $w, $h, 0 );
+  }
+}
+
+/* --------------------------------------------- */
+/* contents */
+/* --------------------------------------------- */
+@mixin contentsHide( $time: 700 ){
+  display: none;
+  opacity: 0;
+  animation-duration: #{$time}ms;
+  animation-name: contents-fadeout;
+  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+}
+
+@mixin contentsShow( $time: 700 ){
+  display: block;
+  opacity: 1;
+  animation-duration: #{$time}ms;
+  animation-name: contents-fadein;
+  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+}
