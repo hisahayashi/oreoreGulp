@@ -177,14 +177,28 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
     top: 50%;
     margin: (-$h/2+px) 0 0 (-$w/2+px);
   }
+  @else if $position == 2{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin: (-$h/2+px) 0 0 0;
+  }
+
+  @if $w != auto {
+    $w: $w+px;
+  }
+
+  @if $h != auto {
+    $h: $h+px
+  }
 
   content: "";
   display: block;
-  width: $w+px;
-  height: $h+px;
+  width: $w;
+  height: $h;
   background-image: url( #{$path} );
   background-repeat: no-repeat;
-  background-size: $w+px $h+px;
+  background-size: $w $h;
   @include hide-text;
 }
 
@@ -195,9 +209,9 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
 @mixin custom-background( $file, $w, $h ){
   /* @2x */
 
-  $file_suffix: addSuffix( $file, '@2x' );
-  $path_1x: '/assets/img/lo-res' + $file;
-  $path_2x: '/assets/img/hi-res' + $file_suffix;
+  $file_suffix: addSuffix( $file, '' );
+  $path_1x: '/assets/img/medium' + $file;
+  $path_2x: '/assets/img/large' + $file_suffix;
 
   display: block;
   width: $w+px;
@@ -241,19 +255,31 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
 /* --------------------------------------------- */
 /* mixin */
 /* --------------------------------------------- */
-@mixin head-btn{
-  a{
-    display: block;
-    width: 46px;
-    height: 46px;
-    border: $dk_black solid 1px;
-    box-sizing: border-box;
-    border-radius: 3px;
+@mixin trim-image-cont($w, $h){
+  position: relative;
+  width: $w+px;
+  height: $h+px;
+  overflow: hidden;
+  border-radius: 50%;
 
-    &:after{
+  img{
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    margin: auto;
+
+    &.x{
+      width: auto;
+      height: 100%;
+    }
+
+    &.y{
+      width: 100%;
+      height: auto;
     }
   }
 }
+
 
 /* --------------------------------------------- */
 /* button */
@@ -292,4 +318,94 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
   box-sizing: border-box;
   @include corner-arrow( 6, 6, 6, 6 );
   @include op-over( 0.5, 0.15 );
+}
+
+/* --------------------------------------------- */
+/* link and button */
+/* --------------------------------------------- */
+@mixin text-link{
+  color: #92b006;
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+    color: $yellow;
+  }
+  transition: color 150ms ease;
+}
+
+@mixin text-btn-link{
+  &:hover{
+    color: $yellow;
+  }
+  transition: color 150ms ease;
+}
+
+@mixin op-hover{
+  &:hover{
+    opacity: 0.7;
+  }
+  transition: opacity 150ms ease;
+}
+
+@mixin img-hover( $path ){
+  background: url(../img/global/large/#{$path}) no-repeat;  background-size: 0;
+  img{
+    transition: all 150ms ease;
+  }
+  &:hover{
+    background-size: 100% auto;
+    img{
+      opacity: 0;
+      transform: scale(1.1);
+    }
+  }
+}
+
+/* --------------------------------------------- */
+/* animation */
+/* --------------------------------------------- */
+@mixin contentsHide( $time: 700 ){
+  display: none;
+  opacity: 0;
+  animation-duration: #{$time}ms;
+  animation-name: contents-fadeout;
+  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+}
+
+@mixin contentsShow( $time: 700 ){
+  display: block;
+  opacity: 1;
+  animation-duration: #{$time}ms;
+  animation-name: contents-fadein;
+  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+}
+
+@keyframes fadein {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    display: block;
+    opacity: 1;
+  }
+  99% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+  }
 }

@@ -5,23 +5,17 @@
     version    : 'v2.2'
   });
 
-  var dom = $('#head .share');
+  // FB.Event.subscribe( 'edge.create', function(response) {
+  // });
 
-  FB.Event.subscribe( 'edge.create', function(response) {
-    dom.transition({ right: 370 }, 0, 'easeInOutCirc', function(){});
-  });
+  // FB.Event.subscribe( 'edge.remove', function(response) {
+  // });
 
-  FB.Event.subscribe( 'edge.remove', function(response) {
-    dom.transition({ right: '' }, 0, 'easeInOutCirc', function(){});
-  });
+  // FB.Event.subscribe( 'comment.create', function(response) {
+  // });
 
-  FB.Event.subscribe( 'comment.create', function(response) {
-    dom.transition({ right: '' }, 0, 'easeInOutCirc', function(){});
-  });
-
-  FB.Event.subscribe( 'comment.remove', function(response) {
-    dom.transition({ right: '' }, 0, 'easeInOutCirc', function(){});
-  });
+  // FB.Event.subscribe( 'comment.remove', function(response) {
+  // });
 };
 
 (function(d, s, id){

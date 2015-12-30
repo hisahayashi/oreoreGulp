@@ -1,3 +1,5 @@
+var All = {};
+
 /*------------------------------------------------------------*/
 /* header */
 All.setupHeadNavigation = function(){

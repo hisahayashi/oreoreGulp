@@ -1,12 +1,72 @@
 /*------------------------------------------------------------*/
 /* console.log のかわり */
-var debug = function( $obj ) {
+var debug = function() {
   if( window.console && window.console.log ) {
-    if( global.debug ) window.console.log( $obj );
+    if( global.debug ){
+      window.console.log.apply(console, arguments);
+    }
   }
 };
 
 var Utils = [];
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.twitterWebIntent = function( text, url, hashtag ) {
+  debug( 'text: ' + text );
+  debug( 'url: ' + url );
+  debug( 'hashtag: ' + hashtag );
+  var enc_text = encodeURIComponent( text );
+  var enc_url = encodeURIComponent( url );
+  var enc_hashtag = encodeURIComponent( hashtag );
+  var url = 'https://twitter.com/share?url='+enc_url+'&hashtags=' + enc_hashtag + '&text=' + enc_text;
+  window.open( url, '_blank' );
+};
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.facebookFeed = function( name, description, picture, url ) {
+  debug( 'name: ' + name );
+  debug( 'description: ' + description );
+  debug( 'picture: ' + picture );
+  debug( 'url: ' + url );
+
+  // if( !global.global.domain.match('toyota.jp') ){
+  //   url = url.replace('toyota.jp', 'test-tohyo.hys-inc.jp');
+  //   picture = picture.replace('toyota.jp', 'test-tohyo.hys-inc.jp');
+  // }
+
+  FB.ui({
+    method: 'feed',
+    // message: 'test message',
+    // caption: 'caption',
+    name: name,
+    description: (
+      description
+    ),
+    link: url,
+    picture: picture
+  },
+  function(response) {
+    if (response && !response.error_code) {
+      // alert('Posting completed.');
+    } else {
+      // alert('Error while posting.');
+    }
+  });
+};
+
+/*------------------------------------------------------------*/
+Utils.getDeviceOrientation = function(){
+  // portrait
+  if(window.innerHeight > window.innerWidth){
+    return 'portrait';
+  }
+  // landscape
+  else{
+    return 'landscape';
+  }
+};
 
 /*------------------------------------------------------------*/
 /*  */
@@ -20,10 +80,45 @@ Utils.numComma = function( num ) {
 
 /*------------------------------------------------------------*/
 /*  */
+Utils.canvasDetector = {
+  canCanvas: function() {
+    return !!window.CanvasRenderingContext2D
+  },
+  canWebGL: function() {
+    try {
+      return !!window.WebGLRenderingContext && !!document.createElement('canvas').getContext('experimental-webgl');
+    } catch (e) {
+      return false;
+    }
+  }
+};
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.formatDate = function(date, format) {
+  if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
+  format = format.replace(/YYYY/g, date.getFullYear());
+  format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
+  format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
+  format = format.replace(/hh/g, ('0' + date.getHours()).slice(-2));
+  format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
+  format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
+  if (format.match(/S/g)) {
+    var milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
+    var length = format.match(/S/g).length;
+    for (var i = 0; i < length; i++) format = format.replace(/S/, milliSeconds.substring(i, i + 1));
+  }
+  return format;
+};
+
+/*------------------------------------------------------------*/
+/*  */
 Utils.separate = function( num ) {
   return String( num ).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,' );
 };
 
+/*------------------------------------------------------------*/
+/*  */
 Utils.browserLanguage = function() {
   var ua = window.navigator.userAgent.toLowerCase();
   try {

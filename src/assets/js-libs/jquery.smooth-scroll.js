@@ -1,7 +1,7 @@
 /*!
- * jQuery Smooth Scroll - v1.5.4 - 2014-11-17
+ * jQuery Smooth Scroll - v1.5.7 - 2015-12-16
  * https://github.com/kswedberg/jquery-smooth-scroll
- * Copyright (c) 2014 Karl Swedberg
+ * Copyright (c) 2015 Karl Swedberg
  * Licensed MIT (https://github.com/kswedberg/jquery-smooth-scroll/blob/master/LICENSE-MIT)
  */
 
@@ -9,13 +9,16 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS
+    factory(require('jquery'));
   } else {
     // Browser globals
     factory(jQuery);
   }
 }(function ($) {
 
-  var version = '1.5.4',
+  var version = '1.5.7',
       optionOverrides = {},
       defaults = {
         exclude: [],
@@ -55,9 +58,18 @@
             dir = opts.dir && opts.dir === 'left' ? 'scrollLeft' : 'scrollTop';
 
         this.each(function() {
-
-          if (this === document || this === window) { return; }
           var el = $(this);
+
+          if (this === document || this === window) {
+            return;
+          }
+
+          if ( document.scrollingElement && (this === document.documentElement || this === document.body) ) {
+            scrollable.push(document.scrollingElement);
+
+            return false;
+          }
+
           if ( el[dir]() > 0 ) {
             scrollable.push(this);
           } else {
@@ -219,12 +231,9 @@
     // automatically calculate the speed of the scroll based on distance / coefficient
     if (speed === 'auto') {
 
-      // $scroller.scrollTop() is position before scroll, aniProps[scrollDir] is position after
+      // $scroller[scrollDir]() is position before scroll, aniProps[scrollDir] is position after
       // When delta is greater, speed will be greater.
-      delta = aniProps[scrollDir] - $scroller.scrollTop();
-      if(delta < 0) {
-        delta *= -1;
-      }
+      delta = Math.abs(aniProps[scrollDir] - $scroller[scrollDir]());
 
       // Divide the delta by the coefficient
       speed = delta / opts.autoCoefficient;

@@ -17,7 +17,7 @@ body {
   color: $white;
   line-height: 1;
   letter-spacing: 0.05em;
-  background: $dk_white;
+  background: $white;
 }
 
 h1, h2, h3, h4, h5 {
@@ -57,10 +57,6 @@ a:active {
 /* --------------------------------------------- */
 #wrap {
   position: relative;
-  width: 375px;
-  margin: 0 auto;
-  padding: 58px 0 0 0;
-  background: $white;
 }
 
 body#smp{
