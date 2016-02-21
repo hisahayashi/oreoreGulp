@@ -1,1 +1,1 @@
-var global = {"global":{"root":"/","sitename":"test","description":"","keywords":""},"meta":{},"facebook":{"appid":"0000000000000000"},"ga":{"id":"UA-xxx-1"},"debug":true}
+var global = {"global":{"root":"/","sitename":"test","description":"","keywords":""},"meta":{},"facebook":{"appid":"0000000000000000"},"ga":{"id":"UA-xxx-1"},"debug":true,"filename":"/Volumes/JDL/Programs/GitHub/oreoreGulp/src/ejs/second/index.ejs"}

@@ -1,7 +1,5 @@
 <% if( page.type == 'top' ){ %>
 <%# Top %>
-
-<link rel="stylesheet" href="assets/css/styles.min.css" media="all">
 <!-- build:remove -->
 usemin内のsrcはEJSファイルからのパスを指定
 <!-- endbuild -->
@@ -39,15 +37,11 @@ usemin内のsrcはEJSファイルからのパスを指定
 <script type="text/javascript" src="../assets/js-dev/page/main.api.js"></script>
 <script type="text/javascript" src="../assets/js-dev/page/main.utils.js"></script>
 <!-- endbuild -->
-
 <% } else{ %>
 <%# Second %>
-
-<link rel="stylesheet" href="<%= global.root %>assets/css/styles.min.css" media="all">
 <script src="<%= global.root %>assets/js/utils.min.js"></script>
 <script src="<%= global.root %>assets/js/libs.min.js"></script>
 <script src="<%= global.root %>assets/js/scripts.min.js"></script>
-
 <% } %>
 
 

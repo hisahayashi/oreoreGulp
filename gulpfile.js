@@ -2,13 +2,16 @@
 /* 変数 */
 /* ------------------------------------------------ */
 var local_obj = {
-  root: "/"
+  root: "/",
+  api_root: "/",
 };
 var stage_obj = {
-  root: "http://example.com/test/"
+  root: "http://example.com/test/",
+  api_root: "http://example.com/test/",
 };
 var prod_obj = {
-  root: "http://example.com/"
+  root: "http://example.com/",
+  api_root: "http://example.com/",
 };
 var bsPort = 3000;
 
@@ -92,6 +95,8 @@ var selector = {
   js_libs: ['./src/assets/js-libs/**/*'],
   js_global: ['./src/assets/js-dev/global.js'],
   json: ['./src/assets/json/**/*'],
+  php: ['./src/php/**/*'],
+  php_env: ['./src/php/app/env.php'],
   css: ['./src/assets/css/**/*'],
   sass: ['./src/assets/sass/**/*']
 };
@@ -194,7 +199,7 @@ gulp.task('edit_global_js', function(callback) {
     .pipe($.edit(function(src, cb) {
       // this === file
       var err = null;
-      var obj = ejsJson; //Object.create(ejsJson);
+      var obj = ejsJson;
       obj.debug = true;
       if ($.util.env.stage || $.util.env.prod) obj.debug = false;
       src += 'var global = ' + JSON.stringify(obj);
@@ -204,6 +209,25 @@ gulp.task('edit_global_js', function(callback) {
       suffix: '.edit',
     }))
     .pipe(gulp.dest('./src/assets/js-dev/'))
+    .on('end', function() {});
+});
+
+gulp.task('edit_global_php', function(callback) {
+  return gulp.src(selector.php_env)
+    .pipe($.edit(function(src, cb) {
+      // this === file
+      var err = null;
+      var obj = ejsJson;
+      obj.debug = true;
+      if ($.util.env.stage || $.util.env.prod) obj.debug = false;
+      var src = "<?php" + '\n';
+      src += "define('API_KEY', '" + env_obj.root + "');" + '\n';
+      cb(err, src);
+    }))
+    .pipe($.rename({
+      suffix: '.edit',
+    }))
+    .pipe(gulp.dest('./src/php/app/'))
     .on('end', function() {});
 });
 
@@ -261,6 +285,7 @@ gulp.task('task', folder(pathToFolder, function(folder){
 
 gulp.task('copy_img', function() {
   return gulp.src(selector.img)
+    .pipe($.imagemin())
     .pipe($.plumber())
     .pipe(gulp.dest(paths.dist + 'assets/img/'));
 });
@@ -289,6 +314,31 @@ gulp.task('copy_sound', function() {
     .pipe(gulp.dest(paths.dist + 'assets/sound/'));
 });
 
+gulp.task('copy_php', function() {
+  return gulp.src(selector.php)
+    .pipe($.plumber())
+    .pipe(gulp.dest(paths.dist + '/'));
+});
+
+gulp.task('bs_connect', function() {
+  $.connectPhp.server({
+    port: bsPort,
+    base: './dist',
+    bin: '/Applications/MAMP/bin/php/php5.6.2/bin/php',
+    ini: '/Applications/MAMP/bin/php/php5.6.2/conf/php.ini'
+  }, function() {
+    browserSync.init(null, {
+      server: {
+        baseDir: paths.dist
+      },
+      port: bsPort,
+      open: false,
+      notify: true,
+      xip: false
+    });
+  });
+});
+
 gulp.task('bs', function() {
   return browserSync.init(null, {
     server: {
@@ -314,6 +364,19 @@ gulp.task('bower', function(callback) {
     .on('end', function() {});
 });
 
+// sftp
+gulp.task('sftp', function(callback) {
+  return gulp.src('./dist/**/*')
+    .pipe($.sftp({
+      host: '[host]',
+      port: 22,
+      user: '[user]',
+      pass: '[password]',
+      remotePath: '[remotePath]',
+    }))
+    .on('end', function() {});
+});
+
 
 /* ------------------------------------------------ */
 /* watch */
@@ -325,6 +388,7 @@ gulp.task('watch', function() {
   gulp.watch(selector.js_lib, ['watchJS']);
   gulp.watch(selector.json, ['watchJS']);
   gulp.watch(selector.ejs_data, ['watchJS']);
+  gulp.watch(selector.php, ['watchPHP']);
 
   var watch = gulp.watch(selector.sass, ['watchCSS']);
   watch.on('change', function(e) {
@@ -337,6 +401,12 @@ gulp.task('watch', function() {
 gulp.task('watchJS', function(callback) {
   runSequence(
     'edit_global_js', 'ejs', 'usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json', callback
+  );
+});
+
+gulp.task('watchPHP', function(callback) {
+  runSequence(
+    'edit_global_php', 'copy_php', callback
   );
 });
 
@@ -358,9 +428,9 @@ gulp.task('watchSprite', function(callback) {
 gulp.task('default', function(callback) {
   runSequence(
     'clean',
-    'edit_global_js', 'ejs', 'usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json',
+    'edit_global_js', 'edit_global_php', 'ejs', 'usemin', 'uglify', 'copy_html', 'clean_html', 'copy_json', 'copy_php',
     'sass', 'pleeease', 'clean_css',
     'copy_img', 'copy_video', 'copy_font', 'copy_sound',
-    'bs', 'watch', callback
+    'bs_connect', 'watch', callback
   );
 });
