@@ -3,17 +3,15 @@
 
 #### 確認環境
 
-- Mac OSX: 10.10.4
 - gem: 2.4.4
 - ruby: 2.0.0
-- gulp: CLI version 3.9.0
-- node: v0.12.4
-
+- gulp: CLI version 3.9.1
+- node: v5.11.0
 
 #### 構成
 HTMLテンプレートにEJSを使用し、JSは生、CSSはSCSSを使用。
 JSのminifiyにはuseminを使用している、ちょっと変則的な構成です。
-普通のサイトを作るように最適化されている気がします。
+至って普通のサイトを作るように最適化されています。
 
 
 ---
