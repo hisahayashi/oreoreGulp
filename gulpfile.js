@@ -29,7 +29,7 @@ $ = require('gulp-load-plugins')({
 /* プラグイン */
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var bower = require('gulp-bower-files');
+var bowerFiles = require('main-bower-files');
 
 var fs = require('fs');
 var pkg = require('./package.json');
@@ -200,8 +200,8 @@ gulp.task('edit_global_js', function(callback) {
       // this === file
       var err = null;
       var obj = ejsJson;
-      obj.debug = true;
-      if ($.util.env.stage || $.util.env.prod) obj.debug = false;
+      // obj.debug = true;
+      // if ($.util.env.stage || $.util.env.prod) obj.debug = false;
       src += 'var global = ' + JSON.stringify(obj);
       cb(err, src);
     }))
@@ -358,7 +358,7 @@ gulp.task('bs-reload', function() {
 
 // Bower
 gulp.task('bower', function(callback) {
-  return bower()
+  return gulp.src(bowerFiles())
     .pipe($.flatten())
     .pipe(gulp.dest(paths.assets + 'js-libs'))
     .on('end', function() {});
