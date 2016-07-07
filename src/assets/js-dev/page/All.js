@@ -41,34 +41,44 @@ All.setupHeadNavigation = function(){
 /*------------------------------------------------------------*/
 /* smp */
 All.setupResponsive = function(){
-
-  debug( rps.smp );
-
   var isSmp = Utils.isSmartDevice();
-  var smpViewport = 'width=375, user-scalable=no, target-densitydpi=device-dpi';
+  var smpViewport = 'width=device-width,user-scalable=no';
   var pcViewport = 'width=1024';
 
-  if( rps.smp ){
+  if(isSmp){
     $('body').attr('id', 'smp');
-    // viewport change
-    $("meta[name='viewport']").attr( 'content', smpViewport);
   }
   else{
     $('body').attr('id', 'pc');
-    // viewport change
-    $('#viewport').attr( 'content', pcViewport);
   }
 
-  // if( Utils.isSmartDevice() == 'smartphone' ){
-  //   $('body').attr('id', 'smp');
-  //   // viewport change
-  //   $("meta[name='viewport']").attr( 'content', smpViewport);
-  // }
+  if( rps.smp ){
+    $('meta[name="viewport"]').attr('content', smpViewport);
+  }
+  else{
+    $('meta[name="viewport"]').attr( 'content', pcViewport);
+  }
 };
 
+/*------------------------------------------------------------*/
+/*  */
 All.updateResponsive = function(){
   rps = Utils.updateMediaMatch();
   All.setupResponsive();
+};
+
+/*------------------------------------------------------------*/
+/*  */
+All.setOrientation = function(){
+  var orientation = Utils.getDeviceOrientation();
+  if( orientation == 'landscape' ){
+    $('body').addClass('landscape');
+    $('body').removeClass('portrait');
+  }
+  else{
+    $('body').removeClass('landscape');
+    $('body').addClass('portrait');
+  }
 };
 
 

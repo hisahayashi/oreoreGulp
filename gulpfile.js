@@ -200,8 +200,8 @@ gulp.task('edit_global_js', function(callback) {
       // this === file
       var err = null;
       var obj = ejsJson;
-      // obj.debug = true;
-      // if ($.util.env.stage || $.util.env.prod) obj.debug = false;
+      obj.debug = true;
+      if ($.util.env.stage || $.util.env.prod) obj.debug = false;
       src += 'var global = ' + JSON.stringify(obj);
       cb(err, src);
     }))
@@ -284,10 +284,17 @@ gulp.task('task', folder(pathToFolder, function(folder){
 */
 
 gulp.task('copy_img', function() {
-  return gulp.src(selector.img)
-    .pipe($.imagemin())
-    .pipe($.plumber())
-    .pipe(gulp.dest(paths.dist + 'assets/img/'));
+  if (env_flg == 'local') {
+    return gulp.src(selector.img)
+      .pipe($.plumber())
+      .pipe(gulp.dest(paths.dist + 'assets/img/'));
+  }
+  else{
+    return gulp.src(selector.img)
+      .pipe($.imagemin())
+      .pipe($.plumber())
+      .pipe(gulp.dest(paths.dist + 'assets/img/'));
+  }
 });
 
 gulp.task('copy_font', function() {

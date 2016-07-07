@@ -2,15 +2,7 @@ $(function(){
 
   $(window).on('resize', function(){
     All.updateResponsive();
-    var orientation = Utils.getDeviceOrientation();
-    if( orientation == 'landscape' ){
-      $('body').addClass('landscape');
-      $('body').removeClass('portrait');
-    }
-    else{
-      $('body').removeClass('landscape');
-      $('body').addClass('portrait');
-    }
+    All.setOrientation();
     return false;
   });
 
@@ -21,6 +13,7 @@ $(function(){
   Utils.addSmoothScroll();
   All.setupHeadNavigation();
   All.setupResponsive();
+  All.setOrientation();
 
   if( $('#wrap').size() ){
     var main = new MAIN();
