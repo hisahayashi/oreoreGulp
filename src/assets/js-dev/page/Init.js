@@ -16,6 +16,10 @@ $(function(){
   All.setOrientation();
 
   if( $('#wrap').size() ){
-    var main = new MAIN();
+    window.main = new MAIN();
   }
 });
+
+function onYouTubeIframeAPIReady(){
+  if(window.main.page_class) window.main.page_class.onYouTubeIframeAPIReady();
+};

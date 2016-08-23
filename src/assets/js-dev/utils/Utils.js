@@ -296,6 +296,116 @@ Utils.getQuery = function() {
 }
 
 /*------------------------------------------------------------*/
+/*  */
+Utils.addSmoothScroll = function(){
+  $('a[href^="#"]').on('click.scroll',function() {
+    var href = this.hash;
+    var $target = $(href == '#_top' ? 'body' : href );
+    if ($target.size()) {
+
+      $.smoothScroll({
+        scrollElement: $('html,body'),
+        scrollTarget: $target,
+        direction: 'top',
+        offset: 0,
+        speed: 600,
+        easing: 'easeInOutExpo',
+        preventDefault: true,
+        beforeScroll: function(){},
+        afterScroll: function(){}
+      });
+    }
+    return false;
+  });
+}
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.removeSmoothScroll = function(){
+  $('a[href^="#"]').off('click.scroll' );
+}
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.updateMediaMatch = function(){
+  var obj = {};
+  obj.smp = false;
+  obj.tablet = false;
+  obj.pc = false;
+  var browser = Utils.getBrowser();
+  if( browser != 'ie6' && browser != 'ie7' && browser != 'ie8' && browser != 'ie9' ){
+    obj.smp = window.matchMedia( '(max-width: 667px)' ).matches;
+    obj.tablet = window.matchMedia( '(min-width: 668px) and (max-width: 1024px)' ).matches;
+    obj.pc = window.matchMedia( '(min-width: 1025px)' ).matches;
+  }
+  return obj;
+}
+
+/*------------------------------------------------------------*/
+/*  */
+// iOSのバージョン判断
+Utils.iosVersion = function (){
+  var ua = navigator.userAgent;
+  if( ua.indexOf('iPhone') > 0 ) {
+    ua.match(/iPhone OS (\w+){1,3}/g);
+    var version = (RegExp.$1.replace(/_/g, '')+'00').slice(0,3);
+    return version;
+  }
+}
+
+/*------------------------------------------------------------*/
+/*  */
+// Androidのバージョン判断
+Utils.androidVersion = function() {
+  var ua = navigator.userAgent;
+  if( ua.indexOf('Android') > 0 ) {
+    var version = parseFloat(ua.slice(ua.indexOf('Android')+8));
+    return version;
+  }
+}
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.ieVersion = function(){
+  var ua = navigator.userAgent.toLowerCase();
+  var appVersion = window.navigator.appVersion.toLowerCase();
+  var version = undefined;
+
+  // debug(ua, appVersion);
+
+  if (ua.indexOf('msie') != -1) {
+    if (ua.indexOf('msie 6.') != -1) {
+      version = 6;
+    }
+    else if (ua.indexOf('msie 7.') != -1) {
+      version = 7;
+    }
+    else if (ua.indexOf('msie 8.') != -1) {
+      version = 8;
+    }
+    else if (ua.indexOf('msie 9.') != -1) {
+      version = 9;
+    }
+  }
+  else{
+  }
+  return version;
+}
+
+/*------------------------------------------------------------*/
+/*  */
+Utils.isEnableDevice = function(){
+  debug('iosVersion', Utils.iosVersion(), 'androidVersion', Utils.androidVersion(), 'ieVersion', Utils.ieVersion());
+  if(Utils.iosVersion() < 710 || Utils.androidVersion() < 4.1 || Utils.ieVersion() < 10 ) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
+
+/*------------------------------------------------------------*/
 /* set requestAnimationFrame to window (with vendor prefixes) */
 ;
 ( function( w, r ) {
