@@ -1,86 +1,95 @@
-@charset "utf-8";
+/**
+ * Owl Carousel v2.1.4
+ * Copyright 2013-2016 David Deutsch
+ * Licensed under MIT (https://github.com/OwlCarousel2/OwlCarousel2/blob/master/LICENSE)
+ */
+
+
 /*
-* 	Owl Carousel Owl Demo Theme
-*	v1.3.2
-*/
+ *  Default theme - Owl Carousel CSS File
+ */
+.owl-carousel{
 
-.owl-theme{
+  &:hover{
+    .owl-nav{
+      opacity: 1;
+    }
+  }
 
- .owl-controls {
-    margin-top: 10px;
+  .owl-nav{
+    opacity: 0;
+    transition: opacity 500ms cubic-bezier($easeIn-out-circ);
+    -webkit-tap-highlight-color: transparent;
+
+    [class*='owl-'] {
+      position: absolute;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      margin: -40px 0 0 0;
+      background: $dk_black;
+      opacity: 0.8;
+    }
+
+    [class*='owl-']:hover {
+      opacity: 0.4;
+      transition: opacity 150ms cubic-bezier($easeIn-out-circ);
+    }
+
+    .owl-prev {
+      left: 0;
+      &:before{
+        content: "<";
+        margin-left: -11px;
+      }
+    }
+
+    .owl-next {
+      right: 0;
+      &:before{
+        content: ">";
+        margin-left: -3px;
+      }
+    }
+
+    .disabled {
+      display: none;
+    }
+
+    .owl-nav.disabled + {
+    }
+
+  }
+
+
+  .owl-dots{
+    margin-top: 35px;
     text-align: center;
+    -webkit-tap-highlight-color: transparent;
 
-    .owl-buttons  {
-
-      div{
-        position: absolute;
-        top: 50%;
-        width: 32px;
-        height: 54px;
-        margin: -16px 0 0 0;
-        @include hide-text;
-
-        &:hover{
-          opacity: 0.5;
-        }
-
-        &.owl-prev {
-          left: 20px;
-          background: url(../img/top_arw01_l.png) no-repeat;
-          background-size: 32px auto;
-        }
-
-        &.owl-next {
-          right: 20px;
-          background: url(../img/top_arw01_r.png) no-repeat;
-          background-size: 32px auto;
-        }
-      }
-    }
-
-    &.clickable  {
-      .owl-buttons {
-        div:hover{
-        }
-      }
-    }
-
-    .owl-page {
+    .owl-dot {
       display: inline-block;
+      zoom: 1;
+      *display: inline;
 
       span {
+        width: 9px;
+        height: 9px;
+        margin: 0 9px;
+        background: $vlt_gray;
         display: block;
-        width: 10px;
-        height: 10px;
-        margin: 5px 7px;
-        opacity: 0.5;
-        border-radius: 5px;
-        background: #869791;
+        -webkit-backface-visibility: visible;
+        border-radius: 30px;
+        transition: background 500ms cubic-bezier($easeIn-out-circ);
       }
 
       &.active span,
       &:hover span {
-        opacity: 1;
-        background: $gray;
-      }
-
-      &.owl-numbers {
-        height: auto;
-        width: auto;
-        color: #fff;
-        padding: 2px 10px;
-        font-size: 12px;
-        border-radius: 30px;
+        background: $lt_black;
       }
     }
 
   }
-}
 
-.owl-item{
-  .loading {
-    min-height: 150px;
-    background: url(../img/AjaxLoader.gif) no-repeat center center
-  }
 }
 
