@@ -24,6 +24,7 @@
     "masonry": "~3.2.2",
     "owl.carousel": "^2.1.4",
     "dat.gui": "*",
-    "stats.js": "*"
+    "stats.js": "*",
+    "autolink": "^1.0.1"
   }
 }

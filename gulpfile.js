@@ -244,6 +244,7 @@ gulp.task('clean_css', function() {
       paths.dist + 'assets/css/styles.css',
       paths.dist + 'assets/css/component',
       paths.dist + 'assets/css/scene',
+      paths.dist + 'assets/css/owl'
     ])
     .pipe($.clean({
       force: true
@@ -252,7 +253,10 @@ gulp.task('clean_css', function() {
 });
 
 gulp.task('clean_html', function() {
-  return gulp.src('./src/html')
+  return gulp.src([
+      './dist/_common',
+      './src/html'
+    ])
     .pipe($.clean({
       force: true
     }))
