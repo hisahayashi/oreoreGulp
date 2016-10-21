@@ -14,3 +14,10 @@ ftppass.json
 *.iml
 *.log
 *.db
+
+# fonts
+*.eot
+*.svg
+*.ttf
+*.woff
+*.woff2
