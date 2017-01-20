@@ -85,8 +85,6 @@ var selector = {
   ejs: ['./src/ejs/*.ejs', './src/ejs/**/*.ejs'],
   ejs_w: ['./src/ejs/**/*.ejs', '!./src/ejs/common/*.ejs'],
   img: ['./src/assets/img/**/*'],
-  sprite: ['./src/assets/img/sprite/*.png'],
-  spriteParts: ['./src/assets/img/sprite_parts/*.png'],
   font: ['./src/assets/fonts/**/*'],
   video: ['./src/assets/video/*'],
   sound: ['./src/assets/sound/*'],
@@ -166,32 +164,6 @@ gulp.task('pleeease', function() {
       suffix: '.min'
     }))
     .pipe(gulp.dest(paths.dist + 'assets/css/'));
-});
-
-gulp.task('sprite', function(callback) {
-  // Generate our spritesheet
-  var spriteData = gulp.src(selector.spriteParts)
-    .pipe($.spritesmith({
-      imgName: 'sprite.png',
-      cssName: '_sprite.scss'
-    }));
-
-  // Pipe image stream through image optimizer and onto disk
-  return spriteData.img
-    .pipe($.imagemin())
-    .pipe(gulp.dest('./src/assets/img/sprite/'))
-    .on('end', function() {
-
-      // Pipe CSS stream through CSS optimizer and onto disk
-      spriteData.css
-        // .pipe($.csso())
-        // .pipe($.rename({
-        //   // suffix: '.min',
-        //   extname: ".scss"
-        // }))
-        .pipe(gulp.dest('./src/assets/sass/component/'));
-    });
-
 });
 
 gulp.task('edit_global_js', function(callback) {
@@ -274,18 +246,6 @@ gulp.task('copy_second', function(callback) {
     // .pipe($.debug())
     .on('end', function() {});
 });
-
-/*
-gulp.task('task', folder(pathToFolder, function(folder){
-    //This will loop over all folders inside pathToFolder main, secondary
-    //Return stream so gulp-folders can concatenate all of them
-    //so you still can use safely use gulp multitasking
-
-    return gulp.src(path.join(pathToFolder, folder, '*.js'))
-        .pipe(concat(folder + '.js'))
-        .pipe(gulp.dest('dist'));
-}));
-*/
 
 gulp.task('copy_img', function() {
   if (env_flg == 'local') {
@@ -406,7 +366,6 @@ gulp.task('watch', function() {
     console.log('File ' + e.path + ' was ' + e.type + ', running tasks...');
   });
 
-  // gulp.watch( selector.spriteParts, [ 'watchSprite' ] );
 });
 
 gulp.task('watchJS', function(callback) {
@@ -427,11 +386,6 @@ gulp.task('watchCSS', function(callback) {
   );
 });
 
-gulp.task('watchSprite', function(callback) {
-  runSequence(
-    'sprite', callback
-  );
-});
 
 /* ------------------------------------------------ */
 /* default */
