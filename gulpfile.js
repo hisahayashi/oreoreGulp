@@ -295,8 +295,8 @@ gulp.task('bs_connect', function() {
   $.connectPhp.server({
     port: bsPort,
     base: './dist',
-    bin: '/Applications/MAMP/bin/php/php5.6.2/bin/php',
-    ini: '/Applications/MAMP/bin/php/php5.6.2/conf/php.ini'
+    bin: '/usr/bin/php',
+    ini: '/etc/php.ini'
   }, function() {
     browserSync.init(null, {
       server: {
