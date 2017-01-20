@@ -6,8 +6,8 @@ deploy_tree
 .sass-cache
 vendor
 ftppass.json
-./src/assets/js-dev/global.edit.js
-./src/php/app/env.edit.js
+src/assets/js-dev/global.edit.js
+src/php/app/env.edit.php
 
 # dusts
 .idea
