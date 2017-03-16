@@ -23,3 +23,5 @@ src/php/app/env.edit.php
 *.ttf
 *.woff
 *.woff2
+
+src/assets/js-dev/global.edit.js
