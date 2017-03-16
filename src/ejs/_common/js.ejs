@@ -1,5 +1,4 @@
 <% if( page.type == 'top' ){ %>
-<%# Top %>
 <!-- build:remove -->
 usemin内のsrcはEJSファイルからのパスを指定
 <!-- endbuild -->
@@ -28,18 +27,15 @@ usemin内のsrcはEJSファイルからのパスを指定
 <script type="text/javascript" src="../assets/js-libs/bufferLoader.js"></script>
 <!-- endbuild -->
 <!-- build:js1 assets/js/scripts.min.js -->
-<script type="text/javascript" src="../assets/js-dev/utils/commonUtils.js"></script>
-<script type="text/javascript" src="../assets/js-dev/utils/methods.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/all.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/init.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/main.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/main.imagesLoaded.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/main.sound.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/main.api.js"></script>
-<script type="text/javascript" src="../assets/js-dev/page/main.utils.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/init.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.loader.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.layout.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.sound.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.api.js"></script>
+<script type="text/javascript" src="../assets/js-dev/scene/main.utils.js"></script>
 <!-- endbuild -->
 <% } else{ %>
-<%# Second %>
 <script src="<%= global.root %>assets/js/utils.min.js"></script>
 <script src="<%= global.root %>assets/js/libs.min.js"></script>
 <script src="<%= global.root %>assets/js/scripts.min.js"></script>
