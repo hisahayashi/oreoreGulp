@@ -181,61 +181,17 @@ $font_roboto_cond: 'Roboto Condensed', sans-serif;
   }
 }
 
-
-
-/* --------------------------------------------- */
-/* container */
-/* --------------------------------------------- */
-@mixin set-flex-width( $w: 640 ){
-  width: $w+px;
-  @media screen and (max-width: #{$w}px) {
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
-}
-
-@mixin title-style{
-  position: relative;
-  margin: 0 0 15px 0;
-  padding: 0 0 8px 0;
-  font-weight: bold;
-  border-bottom: $lt_black solid 1px;
-  &:after{
-    content: "";
-    display: block;
-    position: absolute;
-    width: 15%;
-    bottom: -1px;
-    border-bottom: $dk_gray solid 1px;
-  }
-}
-
-@mixin corner-arrow( $r: 5, $b: 5, $w: 6, $h: 6 ){
-  &:before{
-    content: "";
-    position: absolute;
-    right: $r + px;
-    bottom: $b + px;
-    @include background-image('/icons/all_arw05.png', $w, $h, 0 );
-  }
-}
-
 /* --------------------------------------------- */
 /* contents */
 /* --------------------------------------------- */
 @mixin contentsHide( $time: 700 ){
   display: none;
   opacity: 0;
-  animation-duration: #{$time}ms;
-  animation-name: contents-fadeout;
-  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+  animation: fadeout #{$time}ms cubic-bezier($easeIn-out-circ) 1;
 }
 
 @mixin contentsShow( $time: 700 ){
   display: block;
   opacity: 1;
-  animation-duration: #{$time}ms;
-  animation-name: contents-fadein;
-  // transition: opacity #{$time}s cubic-bezier($easeIn-out-circ);
+  animation: fadein #{$time}ms cubic-bezier($easeIn-out-circ) 1;
 }
