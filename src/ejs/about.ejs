@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<%
+page = {
+  type: 'second'
+};
+%>
+<title><%= global.sitename %></title>
+<%- include _common/include %>
+<%- include _common/meta %>
+<%- include _common/css %>
+</head>
+<body>
+
+<!-- wrap -->
+<div id="wrap">
+
+<%- include _common/header %>
+
+<!-- contents -->
+<article class="contents" id="about">
+<div class="inner">
+
+</div>
+</article>
+<!-- //contents -->
+
+<%- include _common/footer %>
+
+</div>
+<!-- //wrap -->
+
+<%- include _common/js %>
+</body>
+</html>
