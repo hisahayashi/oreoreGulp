@@ -32,13 +32,16 @@ var MAIN = (function() {
     var that = this;
 
     // loader
-    var images = [];
+    var imageAry = [];
+    var params = {
+      container: $('#wrap'),
+      img: true,
+      background: true,
+      list: imageAry,
+      start: true
+    };
 
-    var img = new Image();
-    img.src = 'assets/img/common/share.jpg';
-    images.push(img);
-
-    this.loader = new MAIN.Loader(images, true);
+    this.loader = new MAIN.Loader(params);
     this.loader.on(this.loader.EventAlways, function(e) {
       debug('always', e.instance);
       that.loader.off(this.loader.EventAlways, function(){});

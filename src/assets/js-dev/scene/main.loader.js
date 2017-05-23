@@ -3,14 +3,57 @@ MAIN.Loader = (function() {
 
   /**
    * [Loader description]
-   * @param {[type]} _this.elements [description]
-   * @param {[type]} _is_start [description]
+   * @param {[type]} _params [description]
    */
-  MAIN.Loader = function(_elements, _is_start) {
-    this.loader;
-    this.elements = _elements;
+  MAIN.Loader = function(_params) {
+    var that = this;
+    this.loader = null;
+    this.list = [];
+    this.elements = [];
 
-    if (_is_start) {
+    this.params = {
+      container: $('body'),
+      img: true,
+      background: true,
+      list: [],
+      start: false
+    };
+    $.extend(this.params, _params);
+
+    /* string to object */
+    for(var i = 0; i < this.params.list.length; i++){
+      var src = this.params.list[i];
+      var img = new Image();
+      img.src = src;
+      this.elements.push(img);
+    }
+
+    /* get inline img */
+    if(this.params.img){
+      this.params.container.find('img').each(function(){
+        var $t = $(this);
+        var src = $t.attr('src');
+        var img = new Image();
+        img.src = src;
+        that.elements.push(img);
+      });
+    }
+
+    /* get background image */
+    if(this.params.background){
+      this.params.container.find('article, section, div, p, a, span, b, em, strong').each(function(){
+        var $t = $(this);
+        var bgString = $t.css('background-image');
+        if(bgString != 'none'){
+          var src = bgString.replace('url(', '').replace(')', '').replace(/"|'/g, '');
+          var img = new Image();
+          img.src = src;
+          that.elements.push(img);
+        }
+      });
+    }
+
+    if (this.params.start) {
       this.loadStart();
     }
   };
